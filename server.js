@@ -1,9 +1,19 @@
-const express = require('express');
+import * as dotenv from 'dotenv';
+dotenv.config();
+import express from 'express';
 const app = express();
-const port = 5000;
+import mongoose from 'mongoose';
 
 app.get('/', (req, res) => {
   res.send('Hello');
 });
 
-app.listen(port, () => console.log('Server running...'));
+const port = process.env.PORT || 5100;
+
+try {
+  await mongoose.connect(process.env.MONGOOSE_URI);
+  app.listen(port, () => console.log(`server running on PORT ${port}...`));
+} catch (error) {
+  console.log(error);
+  process.exit(1);
+}
