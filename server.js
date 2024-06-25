@@ -4,9 +4,14 @@ import express from 'express';
 const app = express();
 import mongoose from 'mongoose';
 
+// routers
+import authRouter from './routes/authRouter.js';
+
 app.get('/', (req, res) => {
-  res.send('Hello');
+  res.send('Hello World');
 });
+
+app.use('/api/v1/auth', authRouter);
 
 const port = process.env.PORT || 5100;
 
