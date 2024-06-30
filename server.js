@@ -7,6 +7,8 @@ import mongoose from 'mongoose';
 // routers
 import authRouter from './routes/authRouter.js';
 
+app.use(express.json());
+
 app.get('/', (req, res) => {
   res.send('Hello World');
 });
