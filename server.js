@@ -1,6 +1,7 @@
 import * as dotenv from 'dotenv';
 dotenv.config();
 import express from 'express';
+import 'express-async-errors';
 const app = express();
 import mongoose from 'mongoose';
 
@@ -9,11 +10,16 @@ import authRouter from './routes/authRouter.js';
 
 app.use(express.json());
 
+function errorHandling(err, req, res, next) {
+  res.status(500).json({ msg: err.message });
+}
+
 app.get('/', (req, res) => {
   res.send('Hello World');
 });
 
 app.use('/api/v1/auth', authRouter);
+app.use(errorHandling);
 
 const port = process.env.PORT || 5100;
 
