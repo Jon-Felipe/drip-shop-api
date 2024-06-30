@@ -11,7 +11,10 @@ import authRouter from './routes/authRouter.js';
 app.use(express.json());
 
 function errorHandling(err, req, res, next) {
-  res.status(500).json({ msg: err.message });
+  console.log(err);
+  const statusCode = err.statusCode || 500;
+  const msg = err.message || 'something went wrong, try again later';
+  res.status(statusCode).json({ msg });
 }
 
 app.get('/', (req, res) => {
