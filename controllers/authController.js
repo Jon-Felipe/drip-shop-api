@@ -1,6 +1,9 @@
 import User from '../models/UserModel.js';
 import { validationResult } from 'express-validator';
-import { BadRequestError } from '../errors/customErrors.js';
+import {
+  BadRequestError,
+  UnauthenticatedError,
+} from '../errors/customErrors.js';
 
 export async function register(req, res, next) {
   const result = validationResult(req);
@@ -12,6 +15,13 @@ export async function register(req, res, next) {
   res.status(201).json({ msg: 'user created' });
 }
 
-export function login(req, res) {
-  res.send('login user');
+export async function login(req, res) {
+  const { email, password } = req.body;
+  const user = await User.findOne({ email });
+
+  if (user && (await user.comparePasswords(password))) {
+    res.status(200).json({ user });
+  } else {
+    throw new UnauthenticatedError('Invalid credentials');
+  }
 }
