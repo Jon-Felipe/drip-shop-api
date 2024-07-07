@@ -30,6 +30,17 @@ router.post(
     .withMessage('Password must be at least 6 characters'),
   register
 );
-router.post('/login', login);
+router.post(
+  '/login',
+  body('email')
+    .trim()
+    .notEmpty()
+    .withMessage('Email is required')
+    .isEmail()
+    .withMessage('Invalid email format')
+    .normalizeEmail(),
+  body('password').notEmpty().withMessage('Password is required'),
+  login
+);
 
 export default router;
