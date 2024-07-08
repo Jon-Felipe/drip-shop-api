@@ -1,9 +1,5 @@
 import User from '../models/UserModel.js';
-import { validationResult } from 'express-validator';
-import {
-  BadRequestError,
-  UnauthenticatedError,
-} from '../errors/customErrors.js';
+import { UnauthenticatedError } from '../errors/customErrors.js';
 
 export async function register(req, res, next) {
   await User.create(req.body);
