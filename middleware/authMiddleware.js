@@ -8,7 +8,7 @@ export function authenticateUser(req, res, next) {
   }
   try {
     const { userId } = jwt.decode(token, 'secret');
-    req.user = userId;
+    req.user = { userId };
     next();
   } catch (error) {
     throw new Error('Authentication invalid');
