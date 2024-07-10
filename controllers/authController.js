@@ -2,7 +2,7 @@ import User from '../models/UserModel.js';
 import { UnauthenticatedError } from '../errors/customErrors.js';
 import jwt from 'jsonwebtoken';
 
-export async function register(req, res, next) {
+export async function register(req, res) {
   await User.create(req.body);
   res.status(201).json({ msg: 'user created' });
 }
