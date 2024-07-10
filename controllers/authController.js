@@ -1,5 +1,6 @@
 import User from '../models/UserModel.js';
 import { UnauthenticatedError } from '../errors/customErrors.js';
+import jwt from 'jsonwebtoken';
 
 export async function register(req, res, next) {
   await User.create(req.body);
@@ -11,6 +12,14 @@ export async function login(req, res) {
   const user = await User.findOne({ email });
 
   if (user && (await user.comparePasswords(password))) {
+    const token = jwt.sign({ userId: user._id }, 'secret', { expiresIn: '1h' });
+    const oneDay = 1000 * 60 * 60 * 24;
+    res.cookie('token', token, {
+      httpOnly: true,
+      expires: new Date(Date.now() + oneDay),
+      secure: process.env.NODE_ENV === 'production',
+    });
+
     res.status(200).json({ user });
   } else {
     throw new UnauthenticatedError('Invalid credentials');

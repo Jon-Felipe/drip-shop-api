@@ -4,11 +4,13 @@ import express from 'express';
 import 'express-async-errors';
 const app = express();
 import mongoose from 'mongoose';
+import cookieParser from 'cookie-parser';
 
 // routers
 import authRouter from './routes/authRouter.js';
 
 app.use(express.json());
+app.use(cookieParser());
 
 function errorHandling(err, req, res, next) {
   console.log(err);
