@@ -3,8 +3,15 @@ import { UnauthenticatedError } from '../errors/customErrors.js';
 import jwt from 'jsonwebtoken';
 
 export async function register(req, res) {
-  await User.create(req.body);
-  res.status(201).json({ msg: 'user created' });
+  const user = await User.create(req.body);
+  res
+    .status(201)
+    .json({
+      _id: user._id,
+      fisrtName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+    });
 }
 
 export async function login(req, res) {
@@ -20,7 +27,12 @@ export async function login(req, res) {
       secure: process.env.NODE_ENV === 'production',
     });
 
-    res.status(200).json({ user });
+    res.status(200).json({
+      _id: user._id,
+      fisrtName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+    });
   } else {
     throw new UnauthenticatedError('Invalid credentials');
   }
