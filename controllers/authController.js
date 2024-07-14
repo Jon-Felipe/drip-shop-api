@@ -4,14 +4,12 @@ import jwt from 'jsonwebtoken';
 
 export async function register(req, res) {
   const user = await User.create(req.body);
-  res
-    .status(201)
-    .json({
-      _id: user._id,
-      fisrtName: user.firstName,
-      lastName: user.lastName,
-      email: user.email,
-    });
+  res.status(201).json({
+    _id: user._id,
+    firstName: user.firstName,
+    lastName: user.lastName,
+    email: user.email,
+  });
 }
 
 export async function login(req, res) {
@@ -29,7 +27,7 @@ export async function login(req, res) {
 
     res.status(200).json({
       _id: user._id,
-      fisrtName: user.firstName,
+      firstName: user.firstName,
       lastName: user.lastName,
       email: user.email,
     });
