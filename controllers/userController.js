@@ -6,5 +6,12 @@ export async function getCurrentUser(req, res) {
 }
 
 export async function updateUser(req, res) {
-  res.send('update user');
+  const newUser = { ...req.body };
+  delete newUser.password;
+
+  const updatedUser = await User.findByIdAndUpdate(req.user.userId, newUser, {
+    new: true,
+  });
+
+  res.status(200).json({ updatedUser });
 }
