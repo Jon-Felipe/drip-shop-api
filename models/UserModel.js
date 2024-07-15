@@ -21,6 +21,13 @@ userSchema.methods.comparePasswords = async function (password) {
   return passwordsMatch;
 };
 
+userSchema.methods.toJSON = function () {
+  const user = this;
+  const userObject = user.toObject();
+  delete userObject.password;
+  return userObject;
+};
+
 userSchema.pre('save', async function () {
   const salt = await bcrypt.genSalt(10);
   this.password = await bcrypt.hash(this.password, salt);
