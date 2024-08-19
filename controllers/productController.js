@@ -1,3 +1,5 @@
+import Product from '../models/ProdudctModel.js';
+
 export async function getProducts(req, res) {
   res.send('get products');
 }
@@ -7,7 +9,8 @@ export async function getProduct(req, res) {
 }
 
 export async function createProduct(req, res) {
-  res.send('create product');
+  const product = await Product.create(req.body);
+  res.status(201).json({ product });
 }
 
 export async function updateProduct(req, res) {
