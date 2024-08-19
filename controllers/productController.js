@@ -20,5 +20,6 @@ export async function updateProduct(req, res) {
 }
 
 export async function deleteProduct(req, res) {
-  res.send('delete products');
+  await Product.findByIdAndDelete(req.params.id);
+  res.status(200).json({ msg: 'product deleted' });
 }
