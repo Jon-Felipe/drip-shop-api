@@ -11,6 +11,7 @@ const productSchema = new mongoose.Schema(
     size: String,
     material: String,
     brand: String,
+    department: String,
   },
   { timestamps: true }
 );
