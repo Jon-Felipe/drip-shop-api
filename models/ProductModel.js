@@ -11,7 +11,10 @@ const productSchema = new mongoose.Schema(
     size: String,
     material: String,
     brand: String,
-    department: String,
+    department: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Department',
+    },
   },
   { timestamps: true }
 );
