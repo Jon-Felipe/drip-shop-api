@@ -10,6 +10,7 @@ import cookieParser from 'cookie-parser';
 import authRouter from './routes/authRouter.js';
 import userRouter from './routes/userRouter.js';
 import productRouter from './routes/productRouter.js';
+import departmentRouter from './routes/departmentRouter.js';
 
 app.use(express.json());
 app.use(cookieParser());
@@ -28,6 +29,7 @@ app.get('/', (req, res) => {
 app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/user', userRouter);
 app.use('/api/v1/products', productRouter);
+app.use('/api/v1/department', departmentRouter);
 app.use(errorHandling);
 
 const port = process.env.PORT || 5100;
