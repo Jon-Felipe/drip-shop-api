@@ -2,6 +2,14 @@ import Department from '../models/DepartmentModel.js';
 
 export async function getDepartment(req, res) {
   const { department } = req.params;
+  const { sort } = req.query;
+
+  const sortOptions = {
+    'a-z': { title: 1 },
+    'z-a': { title: -1 },
+  };
+  const sortKey = sortOptions[sort] || sortOptions['a-z'];
+
   const foundDepartment = await Department.aggregate([
     {
       $lookup: {
@@ -9,6 +17,11 @@ export async function getDepartment(req, res) {
         localField: '_id',
         foreignField: 'department',
         as: 'products',
+        pipeline: [
+          {
+            $sort: sortKey,
+          },
+        ],
       },
     },
     {
