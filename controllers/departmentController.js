@@ -21,6 +21,9 @@ export async function getDepartment(req, res) {
           {
             $sort: sortKey,
           },
+          {
+            $limit: 12,
+          },
         ],
       },
     },
