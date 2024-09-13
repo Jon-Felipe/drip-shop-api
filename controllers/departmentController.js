@@ -22,7 +22,7 @@ export async function getDepartment(req, res) {
             $sort: sortKey,
           },
           {
-            $limit: +limit,
+            $limit: +limit || 10,
           },
         ],
       },
