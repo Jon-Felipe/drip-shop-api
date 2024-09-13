@@ -2,7 +2,7 @@ import Department from '../models/DepartmentModel.js';
 
 export async function getDepartment(req, res) {
   const { department } = req.params;
-  const { sort } = req.query;
+  const { sort, limit } = req.query;
 
   const sortOptions = {
     'a-z': { title: 1 },
@@ -22,7 +22,7 @@ export async function getDepartment(req, res) {
             $sort: sortKey,
           },
           {
-            $limit: 12,
+            $limit: +limit,
           },
         ],
       },
