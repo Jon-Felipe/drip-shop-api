@@ -7,6 +7,8 @@ export async function getDepartment(req, res) {
   const sortOptions = {
     'a-z': { title: 1 },
     'z-a': { title: -1 },
+    newest: { createdAt: 1 },
+    oldest: { createdAt: -1 },
   };
   const sortKey = sortOptions[sort] || sortOptions['a-z'];
 
