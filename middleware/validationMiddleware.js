@@ -1,4 +1,4 @@
-import { body, validationResult } from 'express-validator';
+import { body, query, validationResult } from 'express-validator';
 import User from '../models/UserModel.js';
 import { BadRequestError } from '../errors/customErrors.js';
 
@@ -51,4 +51,9 @@ export const validateLoginInput = withValidationErrors([
     .withMessage('Invalid email format')
     .normalizeEmail(),
   body('password').notEmpty().withMessage('Password is required'),
+]);
+
+// get products validation
+export const validateGetProducts = withValidationErrors([
+  query('search').trim().notEmpty().withMessage('Search query is required'),
 ]);
