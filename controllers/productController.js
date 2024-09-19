@@ -1,7 +1,10 @@
 import Product from '../models/ProductModel.js';
 
 export async function getProducts(req, res) {
-  const products = await Product.find({});
+  const { search } = req.query;
+  const products = await Product.find({
+    title: { $regex: search, $options: 'i' },
+  });
   res.status(200).json({ products });
 }
 
