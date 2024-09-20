@@ -4,7 +4,7 @@ export async function getProducts(req, res) {
   const { search, limit } = req.query;
   const products = await Product.find({
     title: { $regex: search, $options: 'i' },
-  }).limit(limit ?? 1);
+  }).limit(limit ?? 10);
   res.status(200).json({ products });
 }
 
