@@ -1,6 +1,8 @@
-import { body, query, validationResult } from 'express-validator';
+import { body, query, param, validationResult } from 'express-validator';
+import mongoose from 'mongoose';
 import User from '../models/UserModel.js';
-import { BadRequestError } from '../errors/customErrors.js';
+import Product from '../models/ProductModel.js';
+import { BadRequestError, NotFoundError } from '../errors/customErrors.js';
 
 function withValidationErrors(validationValues) {
   return [
@@ -51,6 +53,16 @@ export const validateLoginInput = withValidationErrors([
     .withMessage('Invalid email format')
     .normalizeEmail(),
   body('password').notEmpty().withMessage('Password is required'),
+]);
+
+// validate id param
+export const validateIdParam = withValidationErrors([
+  param('id').custom(async (value, { req }) => {
+    const isValidMongodId = mongoose.Types.ObjectId.isValid(value);
+    if (!isValidMongodId) throw new BadRequestError('Invalid MongoDB ID');
+    const product = await Product.findById(value);
+    if (!product) throw new NotFoundError(`No product found with ID: ${value}`);
+  }),
 ]);
 
 // get products validation
