@@ -11,6 +11,7 @@ const orderSchema = new mongoose.Schema(
         title: String,
         price: Number,
         quantity: Number,
+        size: String,
         product: {
           type: mongoose.Schema.Types.ObjectId,
           ref: 'Product',
@@ -34,7 +35,6 @@ const orderSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
-    deliveredAt: Date,
   },
   { timestamps: true }
 );
