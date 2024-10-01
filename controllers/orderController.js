@@ -8,15 +8,16 @@ export async function createOrder(req, res) {
     paymentMethod,
     totalPrice,
   } = req.body;
-  const order = await Order.create({
-    user: req.user.userId,
+  const order = new Order({
+    user: req.user._id,
     orderItems,
     shippingAddress,
     shippingMethod,
     paymentMethod,
     totalPrice,
   });
-  res.status(200).json({ order });
+  const createdOrder = await order.save();
+  res.status(201).json(createdOrder);
 }
 
 export async function getOrders(req, res) {
