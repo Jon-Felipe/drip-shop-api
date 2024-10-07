@@ -23,14 +23,19 @@ const orderSchema = new mongoose.Schema(
       type: String,
       default: 'executed',
     },
-    shippingAddress: {
-      street: String,
-      city: String,
-      postalcode: String,
-      country: String,
+    deliveryInformation: {
+      firstName: String,
+      lastName: String,
+      email: String,
+      phoneNumber: String,
+      shippingAddress: {
+        street: String,
+        city: String,
+        postalcode: String,
+        country: String,
+      },
     },
     shippingMethod: String,
-    paymentMethod: String,
     totalPrice: Number,
     isDelivered: {
       type: Boolean,
