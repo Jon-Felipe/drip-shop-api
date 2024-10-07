@@ -75,29 +75,15 @@ export const validateCreateOrders = withValidationErrors([
   body('orderItems')
     .notEmpty()
     .isArray({ min: 1 })
-    .withMessage('Order items is required'),
-  body('shippingAddress.street')
-    .trim()
+    .withMessage('Order Items is required'),
+  body('deliveryInformation')
     .notEmpty()
-    .withMessage('Street is required'),
-  body('shippingAddress.city')
-    .trim()
+    .withMessage('Delivery Information is required'),
+  body('deliveryInformation.shippingAddress')
     .notEmpty()
-    .withMessage('City is required'),
-  body('shippingAddress.postalcode')
-    .trim()
-    .notEmpty()
-    .withMessage('Postalcode is required'),
-  body('shippingAddress.country')
-    .trim()
-    .notEmpty()
-    .withMessage('Country is required'),
+    .withMessage('Shipping Address is required'),
   body('shippingMethod')
     .trim()
     .notEmpty()
     .withMessage('Shipping Method is required'),
-  body('paymentMethod')
-    .trim()
-    .notEmpty()
-    .withMessage('Payment Method is required'),
 ]);
