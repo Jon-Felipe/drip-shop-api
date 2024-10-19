@@ -26,7 +26,6 @@ const orderSchema = new mongoose.Schema(
     deliveryInformation: {
       firstName: String,
       lastName: String,
-      email: String,
       phoneNumber: String,
       shippingAddress: {
         street: String,
@@ -35,7 +34,6 @@ const orderSchema = new mongoose.Schema(
         country: String,
       },
     },
-    shippingMethod: String,
     totalPrice: Number,
     isDelivered: {
       type: Boolean,

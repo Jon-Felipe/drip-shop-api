@@ -82,8 +82,4 @@ export const validateCreateOrders = withValidationErrors([
   body('deliveryInformation.shippingAddress')
     .notEmpty()
     .withMessage('Shipping Address is required'),
-  body('shippingMethod')
-    .trim()
-    .notEmpty()
-    .withMessage('Shipping Method is required'),
 ]);
